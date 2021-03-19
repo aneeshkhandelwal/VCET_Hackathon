@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Customer Registration </title>
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!--BootStrap Files-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!--JQuery Files-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <!--Popper JS Files-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        function clearer()
+        {
+            document.getElementById("cname").value="";
+            document.getElementById("dob").value="";
+            document.getElementById("male").checked=false;
+            document.getElementById("female").checked=false;
+            document.getElementById("email").value="";
+            document.getElementById("college").value=0;
+            document.getElementById("contact1").value="";
+            document.getElementById("contact2").value="";
+            document.getElementById("password").value="";
+            document.getElementById("conpassword").value="";
+        }
+        function form_validator()
+        {
+            var name=document.getElementById("cname").value;
+            var dob=document.getElementById("dob").value;
+            var male=document.getElementById("male").checked;
+            var female=document.getElementById("female").checked;
+            var email=document.getElementById("email").value;
+            var clg=document.getElementById("college").value;
+            var contact1=document.getElementById("contact1").value;
+            var contact2=document.getElementById("contact2").value;
+            var password=document.getElementById("password").value;
+            var conpassword=document.getElementById("conpassword").value;
+            if(namechecker(name))
+            {
+                if(dobchecker(dob))
+                {
+                    if(genderchecker(male,female))
+                    {
+                        if(mailchecker(email))
+                        {
+                            if(clgchecker(clg))
+                            {
+                                if(conchecker(contact1,contact2))
+                                {
+                                    if(passwordchecker(password,conpassword))
+                                    {
+										return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+        function namechecker(name)
+        {
+            if(name.length!=0)
+            {
+                var regex=/^[a-zA-Z ]+$/;
+                if(name.match(regex))
+                {
+                    return true;
+                }
+                else
+                {
+                    alert("Invalid Name");
+                    return false;
+                }
+            }
+            else
+            {
+                alert("Vacant Name Field");
+                document.getElementById("cname").focus();
+                return false;
+            }
+        }
+        function dobchecker(dob)
+        {
+            if(dob=="")
+            {
+                alert("Date Field is vacant");
+                document.getElementById("dob").focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        function genderchecker(male,female)
+        {
+            if(male==true||female==true)
+            {
+                return true;
+            }
+            else
+            {
+                alert("Select the Gender");
+                return false;
+            }
+        }
+        function mailchecker(email)
+        {
+            if(email.length!=0)
+            {
+                var regex=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+                if(email.match(regex))
+                {
+                    return true;
+                }
+                else
+                {
+                    alert("Invalid Email");
+                    return false;
+                }
+            }
+            else
+            {
+                alert("Email Field is Vacant");
+                document.getElementById("email").focus();
+                return false;
+            }
+        }
+        function clgchecker(clg)
+        {
+            if(clg!=0)
+            {
+                return true;
+            }
+            else
+            {
+                alert("Select the College Name");
+                document.getElementById("college").focus();
+                return false;
+            }
+        }
+        function conchecker(contact1,contact2)
+        {
+            //var counter=Number(0);
+            var status1="";
+            var status2="";
+            if(contact1.length==10 && contact2.length==10)
+            {
+                var regex=/^\d{10}$/;
+                if(contact1.match(regex))
+                {
+                    status1="A";
+                }
+                if(contact2.match(regex))
+                {
+                    status2="B";
+                }
+                if(status1=="A" && status2=="B")
+                {
+                    return true;
+                }
+               else
+                {   
+                    alert("Contact or Alternative Contact is invalid");   
+                    return false;
+                }
+            }
+            else
+            {
+                alert("Contact Number or Alternative Contact are Vacant");
+                document.getElementById("contact1").focus();
+                return false;
+            }
+        }
+        function passwordchecker(password,conpassword)
+        {
+            var status1;
+            var status2;
+            if(password.length!=0 && conpassword.length!=0)
+            {
+                var regex= /^[A-Za-z]\w{7,14}$/;
+                if(password.match(regex))
+                {
+                    status1="A";
+                }
+                if(conpassword.match(regex))
+                {
+                    status2="B";
+                }
+                if(status1=="A" && status2=="B")
+                {
+                    if(password==conpassword)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        alert("Password and Confirm Password is Not Same");
+                    }
+                }
+                else
+                {
+                    alert("Password must be 7 to 16 Characters with characters, digits underscore and first character must be letter");
+                    return false;
+                }
+            }
+            else
+            {
+                alert("Password or Confirm Password Field is Vacant");
+                document.getElementById("password").focus();
+                return false;
+            }
+        }
+        </script>
+        <style type="text/css">
+        div.jumbotron
+        {
+            text-align:center;
+            padding-top: 10px;
+            padding-bottom:0px;
+        }
+        </style>
+    </head>
+    <body class="container">
+        <form name="registration" method="POST" action="customer_details.php" onSubmit="return form_validator()">
+            <div class="jumbotron">
+                <h3> Customer Registration</h3>
+                <p> Messwale.in </p>
+            </div>
+            <div class="form-group">
+                <p> <label for="name"> Name: </label> </p>
+                <p> <input type="text" class="form-control" name="cname" id="cname" placeholder="Adam Joe"> </p>
+            </div>
+            <div class="form-group">
+                <p> <label for="dob"> Date of Birth: </label> </p>
+                <p> <input type="date" class="form-control" name="dob" id="dob"> </p>
+            </div>
+            <div class="form-check">
+                <p> <label for="gender" class="form-check-label"> Gender: </label> </p>
+                <p> <input type="radio" class="form-check-input" name="gender" id="male" value="Male"/> Male </p>
+                <p> <input type="radio" class="form-check-input" name="gender" id="female" value="Female"> Female </p> 
+            </div>    
+            <div class="form-group">
+                <p> <label for="email"> Email ID: </label> </p>
+                <p> <input type="email" class="form-control" name="email" id="email" placeholder="elonmusk@gmail.com"> </p>
+            </div>
+            <div class="form-group">
+                <p> <label for="college"> Select College </label> </p>
+                <select class="form-control" id="college" name="college" size="4">
+                    <option value="0" disabled selected> Select the College </option>
+                    <option value="1"> Vishwakarma Institute of Technology (VIT) </option>
+                    <option value="2"> Vishwakarma Institute of Information Technology (VIIT) </option>
+                    <option value="3"> Pune Institute of Computer Technology (PICT) </option>
+                    <option value="4"> Bharthi Vidyapeeth (BVP) </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <p> <label for="contact1"> Contact Number </label></p>
+                <p> <input type="text" class="form-control" name="contact1" id="contact1" maxlength="10" placeholder="9898989898"> </p>
+            </div>
+            <div class="form-group">
+                    <p> <label for="contact2"> Alternative Contact Number </label></p>
+                    <p> <input type="text" class="form-control" name="contact2" id="contact2" maxlength="10" placeholder="9898989898"> </p>
+            </div>
+            <div class="form-group">
+                <p> <label for="password"> Password </label></p>
+                <p> <input type="password" class="form-control" name="password" id="password" min="7" max="16"> </p>
+            </div>
+            <div class="form-group">
+                    <p> <label for="conpassword"> Confirm Password </label></p>
+                    <p> <input type="password" class="form-control" name="conpassword" id="conpassword" min="7" max="16"> </p>
+            </div>
+            <p> <button type="submit" class="btn btn-primary"> Submit </button> &nbsp; <button type="button" class="btn btn-primary" onclick="clearer()"> Cancel </button> </p>
+        </form>
+    </body>
+</html>
